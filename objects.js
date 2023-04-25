@@ -15,12 +15,27 @@ const people = [
   // Write a function that takes an array of objects, where each object represents a product 
   // with a name, price, and category property. The function should return an object that groups the products by their categories, 
   // with the category names as keys and the arrays of products as values.
+
+
+
   const products = [
     { name: 'Laptop', price: 1200, category: 'Electronics' },
     { name: 'Shirt', price: 25, category: 'Clothing' },
     { name: 'Headphones', price: 80, category: 'Electronics' },
     { name: 'Shoes', price: 60, category: 'Clothing' },
   ];
+  function groupCategory(products) {
+    const grouped = {};
+    products.forEach(product => {
+        if (grouped[product.category]) {
+            grouped[product.category].push(product);
+        } else {
+            grouped[product.category] = [product];
+        }
+    });
+    return grouped;
+}
+console.log(groupCategory(products));
 
   // Given an array of objects, where each object represents a student with a name and an array of scores, 
   // write a function that returns a new array containing the names of all students 
@@ -33,22 +48,17 @@ const people = [
     { name: 'Jill', scores: [85, 90, 84] },
   ];
  
-  function highAverage(students){
-    let highScoreStudent=[];
-    for(let i=0;i<students.lenth;i++){
-      let scores=students[i].scores;
-      let totalScores=0;
-      for(let s=0;s<scores.length;i++){
-        totalScores+=scores[s];
+  function topStudents(students) {
+    const highScore = [];
+    students.forEach((student) => {
+      const averageScore = student.scores.reduce((total, score) => total + score, 0) / student.scores.length;
+      if (averageScore >= 85) {
+        highScore.push(student.name);
       }
-      let average=totalScores/scores.length;
-      if(average>=85){
-        highScoreStudent.push(students[i].name)
-      }
-    }
-    return highScoreStudent;
+    });
+    return highScore;
   }
-console.log(highAverage(students));
+  console.log(topStudents(students));
 
 // let averageScore=students.filter(student=>student.scores>=85) ;
 // console.log({averageScore});
@@ -72,4 +82,5 @@ function addAge(){
   }
   return car;
 }
-console.log(addAge);
+addAge(car);
+console.log(car.age());
